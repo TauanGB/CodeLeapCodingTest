@@ -207,7 +207,7 @@ export function PostFeedShell() {
                           {post.title}
                         </Typography>
                         {isOwner && (
-                          <Stack direction="row" spacing={0.5}>
+                          <Stack direction="row" spacing={2.9}>
                             <IconButton
                               size="small"
                               onClick={() => setDeleteTarget(post)}
