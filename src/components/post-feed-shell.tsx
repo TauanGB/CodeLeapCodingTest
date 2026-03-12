@@ -211,9 +211,13 @@ export function PostFeedShell() {
                             <IconButton
                               size="small"
                               onClick={() => setDeleteTarget(post)}
-                              sx={{ color: "inherit", border: "1px solid rgba(255,255,255,0.75)", borderRadius: 1 }}
+                              sx={{
+                                color: "inherit",
+                                width: { xs: 28, sm: 31.2 },
+                                height: { xs: 28, sm: 31.2 },
+                              }}
                             >
-                              <DeletePostIcon sx={{ fontSize: 20 }} />
+                              <DeletePostIcon sx={{ fontSize: { xs: 24, sm: 31.2 } }} />
                             </IconButton>
                             <IconButton
                               size="small"
@@ -222,9 +226,13 @@ export function PostFeedShell() {
                                 setEditTitle(post.title);
                                 setEditContent(post.content);
                               }}
-                              sx={{ color: "inherit", border: "1px solid rgba(255,255,255,0.75)", borderRadius: 1 }}
+                              sx={{
+                                color: "inherit",
+                                width: { xs: 28, sm: 31.2 },
+                                height: { xs: 28, sm: 31.2 },
+                              }}
                             >
-                              <EditPostIcon sx={{ fontSize: 20 }} />
+                              <EditPostIcon sx={{ fontSize: { xs: 24, sm: 31.2 } }} />
                             </IconButton>
                           </Stack>
                         )}
