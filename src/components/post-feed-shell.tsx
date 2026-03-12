@@ -94,7 +94,6 @@ function LoginScreen() {
 
 export function PostFeedShell() {
   const username = useSessionStore((state) => state.username);
-  const clearSession = useSessionStore((state) => state.clearSession);
   const [title, setTitle] = useState("");
   const [content, setContent] = useState("");
   const [deleteTarget, setDeleteTarget] = useState<Post | null>(null);
@@ -124,118 +123,116 @@ export function PostFeedShell() {
 
   return (
     <Box sx={{ minHeight: "100dvh", py: 6, backgroundColor: "background.default" }}>
-      <Container maxWidth="sm">
-        <Paper elevation={0} sx={{ border: "1px solid #999999", overflow: "hidden", mb: 2 }}>
+      <Container maxWidth={false} sx={{ width: "100%", maxWidth: 800 }}>
+        <Paper elevation={0} sx={{ border: "1px solid #999999", overflow: "hidden" }}>
           <Box sx={{ px: 3, py: 2, backgroundColor: "primary.main", color: "primary.contrastText" }}>
-            <Typography variant="h1">CodeLeap Network</Typography>
+            <Typography sx={{ color: "inherit", fontSize: "1.375rem", fontWeight: 700 }}>CodeLeap Network</Typography>
           </Box>
-        </Paper>
 
-        <Paper elevation={0} sx={{ border: "1px solid #999999", borderRadius: 2, p: 3, mb: 3 }}>
-          <Stack spacing={1.5}>
-            <Typography variant="h2">What&apos;s on your mind?</Typography>
-            <TextField label="Title" placeholder="Hello world" value={title} onChange={(e) => setTitle(e.target.value)} />
-            <TextField
-              label="Content"
-              placeholder="Content here"
-              multiline
-              minRows={3}
-              value={content}
-              onChange={(e) => setContent(e.target.value)}
-            />
-            <Button
-              variant="contained"
-              disabled={isCreateDisabled}
-              sx={{ alignSelf: "flex-end", minWidth: 110 }}
-              onClick={async () => {
-                await createPostMutation.mutateAsync({ username, title: title.trim(), content: content.trim() });
-                setTitle("");
-                setContent("");
-              }}
-            >
-              Create
-            </Button>
-          </Stack>
-        </Paper>
-
-        <Stack spacing={3}>
-          {postsQuery.isLoading && (
-            <Paper elevation={0} sx={{ border: "1px solid #999999", borderRadius: 2, p: 3 }}>
-              <Stack direction="row" spacing={1.5} alignItems="center">
-                <CircularProgress size={18} />
-                <Typography>Loading posts...</Typography>
+          <Box sx={{ p: 2.5, backgroundColor: "background.paper" }}>
+            <Paper elevation={0} sx={{ border: "1px solid #999999", borderRadius: 2, p: 2.5, mb: 3 }}>
+              <Stack spacing={1.5}>
+                <Typography variant="h2">What&apos;s on your mind?</Typography>
+                <TextField label="Title" placeholder="Hello world" value={title} onChange={(e) => setTitle(e.target.value)} />
+                <TextField
+                  label="Content"
+                  placeholder="Content here"
+                  multiline
+                  minRows={3}
+                  value={content}
+                  onChange={(e) => setContent(e.target.value)}
+                />
+                <Button
+                  variant="contained"
+                  disabled={isCreateDisabled}
+                  sx={{ alignSelf: "flex-end", minWidth: 110 }}
+                  onClick={async () => {
+                    await createPostMutation.mutateAsync({ username, title: title.trim(), content: content.trim() });
+                    setTitle("");
+                    setContent("");
+                  }}
+                >
+                  Create
+                </Button>
               </Stack>
             </Paper>
-          )}
 
-          {postsQuery.isError && (
-            <Alert severity="error">
-              Nao foi possivel carregar os posts agora. Tente novamente em instantes.
-            </Alert>
-          )}
-
-          {!postsQuery.isLoading &&
-            !postsQuery.isError &&
-            sortedPosts.map((post) => {
-              const isOwner = post.username === username;
-              return (
-                <Paper key={post.id} elevation={0} sx={{ border: "1px solid #999999", borderRadius: 2, overflow: "hidden" }}>
-                  <Box
-                    sx={{
-                      px: 2.5,
-                      py: 1.5,
-                      backgroundColor: "primary.main",
-                      color: "primary.contrastText",
-                      display: "flex",
-                      alignItems: "center",
-                      justifyContent: "space-between",
-                      gap: 1.5,
-                    }}
-                  >
-                    <Typography variant="h2" sx={{ color: "inherit", overflowWrap: "anywhere" }}>
-                      {post.title}
-                    </Typography>
-                    {isOwner && (
-                      <Stack direction="row" spacing={0.5}>
-                        <IconButton
-                          size="small"
-                          onClick={() => setDeleteTarget(post)}
-                          sx={{ color: "inherit", border: "1px solid rgba(255,255,255,0.75)", borderRadius: 1 }}
-                        >
-                          <DeleteOutlineOutlinedIcon fontSize="small" />
-                        </IconButton>
-                        <IconButton
-                          size="small"
-                          onClick={() => {
-                            setEditTarget(post);
-                            setEditTitle(post.title);
-                            setEditContent(post.content);
-                          }}
-                          sx={{ color: "inherit", border: "1px solid rgba(255,255,255,0.75)", borderRadius: 1 }}
-                        >
-                          <EditOutlinedIcon fontSize="small" />
-                        </IconButton>
-                      </Stack>
-                    )}
-                  </Box>
-
-                  <Stack spacing={1.5} sx={{ p: 2.5 }}>
-                    <Box sx={{ display: "flex", justifyContent: "space-between", gap: 2, color: "text.secondary" }}>
-                      <Typography variant="body2">@{post.username}</Typography>
-                      <Typography variant="body2">{getRelativeTimeLabel(post.created_datetime)}</Typography>
-                    </Box>
-                    <Typography variant="body1" sx={{ whiteSpace: "pre-wrap", overflowWrap: "anywhere" }}>
-                      {post.content}
-                    </Typography>
+            <Stack spacing={3}>
+              {postsQuery.isLoading && (
+                <Paper elevation={0} sx={{ border: "1px solid #999999", borderRadius: 2, p: 3 }}>
+                  <Stack direction="row" spacing={1.5} alignItems="center">
+                    <CircularProgress size={18} />
+                    <Typography>Loading posts...</Typography>
                   </Stack>
                 </Paper>
-              );
-            })}
-        </Stack>
+              )}
 
-        <Button onClick={clearSession} sx={{ mt: 3 }}>
-          logout
-        </Button>
+              {postsQuery.isError && (
+                <Alert severity="error">
+                  Nao foi possivel carregar os posts agora. Tente novamente em instantes.
+                </Alert>
+              )}
+
+              {!postsQuery.isLoading &&
+                !postsQuery.isError &&
+                sortedPosts.map((post) => {
+                  const isOwner = post.username === username;
+                  return (
+                    <Paper key={post.id} elevation={0} sx={{ border: "1px solid #999999", borderRadius: 2, overflow: "hidden" }}>
+                      <Box
+                        sx={{
+                          px: 2.5,
+                          py: 1.5,
+                          backgroundColor: "primary.main",
+                          color: "primary.contrastText",
+                          display: "flex",
+                          alignItems: "center",
+                          justifyContent: "space-between",
+                          gap: 1.5,
+                        }}
+                      >
+                        <Typography variant="h2" sx={{ color: "inherit", overflowWrap: "anywhere" }}>
+                          {post.title}
+                        </Typography>
+                        {isOwner && (
+                          <Stack direction="row" spacing={0.5}>
+                            <IconButton
+                              size="small"
+                              onClick={() => setDeleteTarget(post)}
+                              sx={{ color: "inherit", border: "1px solid rgba(255,255,255,0.75)", borderRadius: 1 }}
+                            >
+                              <DeleteOutlineOutlinedIcon fontSize="small" />
+                            </IconButton>
+                            <IconButton
+                              size="small"
+                              onClick={() => {
+                                setEditTarget(post);
+                                setEditTitle(post.title);
+                                setEditContent(post.content);
+                              }}
+                              sx={{ color: "inherit", border: "1px solid rgba(255,255,255,0.75)", borderRadius: 1 }}
+                            >
+                              <EditOutlinedIcon fontSize="small" />
+                            </IconButton>
+                          </Stack>
+                        )}
+                      </Box>
+
+                      <Stack spacing={1.5} sx={{ p: 2.5 }}>
+                        <Box sx={{ display: "flex", justifyContent: "space-between", gap: 2, color: "text.secondary" }}>
+                          <Typography variant="body2">@{post.username}</Typography>
+                          <Typography variant="body2">{getRelativeTimeLabel(post.created_datetime)}</Typography>
+                        </Box>
+                        <Typography variant="body1" sx={{ whiteSpace: "pre-wrap", overflowWrap: "anywhere" }}>
+                          {post.content}
+                        </Typography>
+                      </Stack>
+                    </Paper>
+                  );
+                })}
+            </Stack>
+          </Box>
+        </Paper>
       </Container>
 
       <Dialog open={Boolean(deleteTarget)} onClose={() => setDeleteTarget(null)} fullWidth maxWidth="sm">
