@@ -509,6 +509,7 @@ export function PostFeedShell() {
           <Button
             variant="outlined"
             onClick={() => setDeleteTarget(null)}
+            disabled={deletePostMutation.isPending}
             sx={{ minWidth: 110, borderColor: "#999999", color: "text.primary" }}
           >
             Cancel
@@ -516,14 +517,15 @@ export function PostFeedShell() {
           <Button
             variant="contained"
             color="error"
+            disabled={deletePostMutation.isPending}
             sx={{ minWidth: 110 }}
             onClick={async () => {
-              if (!deleteTarget) return;
+              if (!deleteTarget || deletePostMutation.isPending) return;
               await deletePostMutation.mutateAsync(deleteTarget.id);
               setDeleteTarget(null);
             }}
           >
-            Delete
+            {deletePostMutation.isPending ? "Deleting..." : "Delete"}
           </Button>
         </DialogActions>
       </Dialog>
