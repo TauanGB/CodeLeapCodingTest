@@ -136,19 +136,29 @@ export function PostFeedShell() {
             <Paper elevation={0} sx={{ border: "1px solid #999999", borderRadius: 2, p: 2.5, mb: 3 }}>
               <Stack spacing={1.5}>
                 <Typography variant="h2">What&apos;s on your mind?</Typography>
-                <TextField label="Title" placeholder="Hello world" value={title} onChange={(e) => setTitle(e.target.value)} />
+                <Box>
+                  <Typography variant="body2" sx={{ mb: 0.5 }}>
+                    Title
+                  </Typography>
+                  <TextField placeholder="Hello world" value={title} onChange={(e) => setTitle(e.target.value)} fullWidth />
+                </Box>
+                <Box>
+                  <Typography variant="body2" sx={{ mb: 0.5 }}>
+                    Content
+                  </Typography>
                 <TextField
-                  label="Content"
                   placeholder="Content here"
                   multiline
                   minRows={3}
                   value={content}
                   onChange={(e) => setContent(e.target.value)}
+                  fullWidth
                 />
+                </Box>
                 <Button
                   variant="contained"
                   disabled={isCreateDisabled}
-                  sx={{ alignSelf: "flex-end", minWidth: 110 }}
+                  sx={{ alignSelf: "flex-end", minWidth: 120 }}
                   onClick={async () => {
                     await createPostMutation.mutateAsync({ username, title: title.trim(), content: content.trim() });
                     setTitle("");
