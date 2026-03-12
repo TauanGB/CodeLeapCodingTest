@@ -60,6 +60,11 @@ export const theme = createTheme({
       defaultProps: {
         size: "small",
       },
+      styleOverrides: {
+        root: {
+          borderRadius: "8px",
+        },
+      },
     },
   },
 });

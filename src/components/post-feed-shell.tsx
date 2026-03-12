@@ -132,7 +132,7 @@ export function PostFeedShell() {
           </Box>
 
           <Box sx={{ p: 2.5, backgroundColor: "background.paper" }}>
-            <Paper elevation={0} sx={{ border: "1px solid #999999", borderRadius: 2, p: 2.5, mb: 3 }}>
+            <Paper elevation={0} sx={{ border: "1px solid #999999", borderRadius: "16px", p: 2.5, mb: 3 }}>
               <Stack spacing={1.5}>
                 <Typography variant="h2">What&apos;s on your mind?</Typography>
                 <Box>
@@ -190,7 +190,7 @@ export function PostFeedShell() {
                 sortedPosts.map((post) => {
                   const isOwner = post.username === username;
                   return (
-                    <Paper key={post.id} elevation={0} sx={{ border: "1px solid #999999", borderRadius: 2, overflow: "hidden" }}>
+                    <Paper key={post.id} elevation={0} sx={{ border: "1px solid #999999", borderRadius: "16px", overflow: "hidden" }}>
                       <Box
                         sx={{
                           px: 2.5,
@@ -240,8 +240,8 @@ export function PostFeedShell() {
 
                       <Stack spacing={1.5} sx={{ p: 2.5 }}>
                         <Box sx={{ display: "flex", justifyContent: "space-between", gap: 2, color: "text.secondary" }}>
-                          <Typography variant="body2">@{post.username}</Typography>
-                          <Typography variant="body2">{getRelativeTimeLabel(post.created_datetime)}</Typography>
+                          <Typography variant="body2" sx={{ fontWeight: 700, fontSize: "18px" }}>@{post.username}</Typography>
+                          <Typography variant="body2" sx={{ fontWeight: 400, fontSize: "18px" }}>{getRelativeTimeLabel(post.created_datetime)}</Typography>
                         </Box>
                         <Typography variant="body1" sx={{ whiteSpace: "pre-wrap", overflowWrap: "anywhere" }}>
                           {post.content}
@@ -284,15 +284,30 @@ export function PostFeedShell() {
         <DialogTitle sx={{ fontWeight: 700 }}>Edit item</DialogTitle>
         <DialogContent sx={{ pt: "8px !important" }}>
           <Stack spacing={1.5}>
-            <TextField label="Title" placeholder="Hello world" value={editTitle} onChange={(e) => setEditTitle(e.target.value)} />
-            <TextField
-              label="Content"
-              placeholder="Content here"
-              multiline
-              minRows={3}
-              value={editContent}
-              onChange={(e) => setEditContent(e.target.value)}
-            />
+            <Box>
+              <Typography variant="body2" sx={{ mb: 0.5 }}>
+                Title
+              </Typography>
+              <TextField
+                placeholder="Hello world"
+                value={editTitle}
+                onChange={(e) => setEditTitle(e.target.value)}
+                fullWidth
+              />
+            </Box>
+            <Box>
+              <Typography variant="body2" sx={{ mb: 0.5 }}>
+                Content
+              </Typography>
+              <TextField
+                placeholder="Content here"
+                multiline
+                minRows={3}
+                value={editContent}
+                onChange={(e) => setEditContent(e.target.value)}
+                fullWidth
+              />
+            </Box>
           </Stack>
         </DialogContent>
         <DialogActions sx={{ px: 3, pb: 2 }}>
