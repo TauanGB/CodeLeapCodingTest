@@ -122,9 +122,12 @@ export function PostFeedShell() {
   const isSaveEditDisabled = !editTitle.trim() || !editContent.trim() || updatePostMutation.isPending;
 
   return (
-    <Box sx={{ minHeight: "100dvh", py: 6, backgroundColor: "background.default" }}>
-      <Container maxWidth={false} sx={{ width: "100%", maxWidth: 800 }}>
-        <Paper elevation={0} sx={{ border: "1px solid #999999", overflow: "hidden" }}>
+    <Box sx={{ minHeight: "100dvh", backgroundColor: "background.default" }}>
+      <Container
+        maxWidth={false}
+        sx={{ width: "100%", maxWidth: 800, minHeight: "100dvh", px: { xs: 0, sm: 0 } }}
+      >
+        <Paper elevation={0} sx={{ minHeight: "100dvh", borderRadius: 0, border: "none", overflow: "hidden" }}>
           <Box sx={{ px: 3, py: 2, backgroundColor: "primary.main", color: "primary.contrastText" }}>
             <Typography sx={{ color: "inherit", fontSize: "1.375rem", fontWeight: 700 }}>CodeLeap Network</Typography>
           </Box>
