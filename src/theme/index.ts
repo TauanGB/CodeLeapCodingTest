@@ -22,12 +22,12 @@ export const theme = createTheme({
     },
   },
   shape: {
-    borderRadius: 16,
+    borderRadius: 8,
   },
   typography: {
     fontFamily: "Roboto, Arial, sans-serif",
     h1: {
-      fontSize: "1.5rem",
+      fontSize: "1.375rem",
       fontWeight: 700,
     },
     h2: {
@@ -45,13 +45,14 @@ export const theme = createTheme({
         root: {
           borderRadius: 8,
           minHeight: 32,
+          minWidth: 110,
         },
       },
     },
     MuiPaper: {
       styleOverrides: {
         root: {
-          borderRadius: 16,
+          borderRadius: 8,
         },
       },
     },

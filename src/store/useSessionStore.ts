@@ -1,4 +1,5 @@
 import { create } from "zustand";
+import { persist } from "zustand/middleware";
 
 type SessionState = {
   username: string;
@@ -6,8 +7,15 @@ type SessionState = {
   clearSession: () => void;
 };
 
-export const useSessionStore = create<SessionState>((set) => ({
-  username: "",
-  setUsername: (username) => set({ username }),
-  clearSession: () => set({ username: "" }),
-}));
+export const useSessionStore = create<SessionState>()(
+  persist(
+    (set) => ({
+      username: "",
+      setUsername: (username) => set({ username }),
+      clearSession: () => set({ username: "" }),
+    }),
+    {
+      name: "codeleap-session",
+    },
+  ),
+);
