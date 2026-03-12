@@ -1,7 +1,5 @@
 "use client";
 
-import DeleteOutlineOutlinedIcon from "@mui/icons-material/DeleteOutlineOutlined";
-import EditOutlinedIcon from "@mui/icons-material/EditOutlined";
 import {
   Alert,
   Box,
@@ -26,6 +24,7 @@ import {
   useUpdatePostMutation,
 } from "@/features/posts/hooks";
 import type { Post } from "@/features/posts/types";
+import { DeletePostIcon, EditPostIcon } from "@/components/icons/action-icons";
 import { useSessionStore } from "@/store/useSessionStore";
 
 function getRelativeTimeLabel(dateIso: string): string {
@@ -214,7 +213,7 @@ export function PostFeedShell() {
                               onClick={() => setDeleteTarget(post)}
                               sx={{ color: "inherit", border: "1px solid rgba(255,255,255,0.75)", borderRadius: 1 }}
                             >
-                              <DeleteOutlineOutlinedIcon fontSize="small" />
+                              <DeletePostIcon sx={{ fontSize: 20 }} />
                             </IconButton>
                             <IconButton
                               size="small"
@@ -225,7 +224,7 @@ export function PostFeedShell() {
                               }}
                               sx={{ color: "inherit", border: "1px solid rgba(255,255,255,0.75)", borderRadius: 1 }}
                             >
-                              <EditOutlinedIcon fontSize="small" />
+                              <EditPostIcon sx={{ fontSize: 20 }} />
                             </IconButton>
                           </Stack>
                         )}
