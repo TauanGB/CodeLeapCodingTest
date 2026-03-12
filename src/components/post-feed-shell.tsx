@@ -26,6 +26,8 @@ import DarkModeOutlinedIcon from "@mui/icons-material/DarkModeOutlined";
 import FavoriteBorderOutlinedIcon from "@mui/icons-material/FavoriteBorderOutlined";
 import FavoriteRoundedIcon from "@mui/icons-material/FavoriteRounded";
 import LightModeOutlinedIcon from "@mui/icons-material/LightModeOutlined";
+import LogoutOutlinedIcon from "@mui/icons-material/LogoutOutlined";
+import RocketLaunchOutlinedIcon from "@mui/icons-material/RocketLaunchOutlined";
 import { type ReactNode, useMemo, useState } from "react";
 import {
   useCreatePostMutation,
@@ -134,6 +136,7 @@ function LoginScreen() {
 
 export function PostFeedShell() {
   const username = useSessionStore((state) => state.username);
+  const clearSession = useSessionStore((state) => state.clearSession);
   const bonusEnabled = useBonusStore((state) => state.bonusEnabled);
   const setBonusEnabled = useBonusStore((state) => state.setBonusEnabled);
   const themeMode = useBonusStore((state) => state.themeMode);
@@ -237,11 +240,18 @@ export function PostFeedShell() {
                 </IconButton>
               )}
               <IconButton
-                aria-label="Open bonus features info"
+                aria-label={bonusEnabled ? "Open advanced mode info" : "Open bonus features info"}
                 onClick={() => setExtrasInfoOpen(true)}
                 sx={{ color: "inherit" }}
               >
-                <AutoAwesomeOutlinedIcon />
+                {bonusEnabled ? <RocketLaunchOutlinedIcon /> : <AutoAwesomeOutlinedIcon />}
+              </IconButton>
+              <IconButton
+                aria-label="Logout"
+                onClick={clearSession}
+                sx={{ color: "inherit" }}
+              >
+                <LogoutOutlinedIcon />
               </IconButton>
             </Stack>
           </Box>
@@ -590,8 +600,9 @@ export function PostFeedShell() {
       <Dialog open={extrasInfoOpen} onClose={() => setExtrasInfoOpen(false)} fullWidth maxWidth="sm">
         <DialogContent sx={{ pt: "20px !important", pb: 1 }}>
           <Typography>
-            Now that you have experienced the requested version, check out the version with the
-            suggested bonus features and a little more.
+            {bonusEnabled
+              ? "You are currently in the bonus experience. Click below to return to the default requested version."
+              : "Now that you have experienced the requested version, check out the version with the suggested bonus features and a little more."}
           </Typography>
         </DialogContent>
         <DialogActions sx={{ px: 3, pb: 2 }}>
@@ -601,11 +612,11 @@ export function PostFeedShell() {
           <Button
             variant="contained"
             onClick={() => {
-              setBonusEnabled(true);
+              setBonusEnabled(!bonusEnabled);
               setExtrasInfoOpen(false);
             }}
           >
-            Start
+            {bonusEnabled ? "Back to default" : "Start"}
           </Button>
         </DialogActions>
       </Dialog>
