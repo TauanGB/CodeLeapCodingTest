@@ -1,36 +1,89 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# CodeLeap Coding Test - Frontend
 
-## Getting Started
+This project was developed as a technical test for a potential role at **CodeLeap**.
 
-First, run the development server:
+The main goal is to implement a web post application with CRUD operations (create, read, update, delete), integrated with the official challenge API:
+
+- `https://dev.codeleap.co.uk/careers/`
+
+## Challenge Context
+
+This project was structured to meet the CodeLeap frontend test requirements with a focus on:
+
+- end-user experience (clean and consistent layout);
+- hooks and strong typing;
+- clear and scalable architecture;
+- a foundation ready for bonus requirements.
+
+## Tech Stack
+
+- `Next.js` (App Router)
+- `TypeScript`
+- `Material UI v7`
+- `Zustand` (global/local state)
+- `TanStack React Query` (remote state/cache)
+
+## Implemented Features
+
+### Base Version (required)
+
+- local login by username;
+- post creation;
+- post listing;
+- post edit and deletion via modals;
+- protection against multiple delete clicks (prevents duplicate requests);
+- edit/delete actions visible only for the current user's own posts.
+
+### Bonus Experience (activated by top button)
+
+- light/dark mode toggle;
+- likes per post;
+- comments per post;
+- highlighted mentions using `@username`;
+- sorting and filtering options;
+- animations and hover effects.
+
+## Running Locally
+
+### 1) Install dependencies
+
+```bash
+npm install
+```
+
+### 2) Run in development mode
 
 ```bash
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Open: [http://localhost:3000](http://localhost:3000)
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+### 3) Validate quality/build
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+```bash
+npm run lint
+npm run build
+```
 
-## Learn More
+## Live Demo
 
-To learn more about Next.js, take a look at the following resources:
+- [CodeLeap Test App](https://tauangb.github.io/CodeLeapCodingTest/)
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+## Main Structure
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+- `src/app/` - App Router, layout, and global providers
+- `src/components/` - UI and screen components
+- `src/features/posts/` - posts domain layer (api/hooks/types)
+- `src/store/` - global Zustand stores
+- `src/theme/` - MUI theme and visual configuration
+- `.cursor/rules/` - project-wide rules for coding assistant guidance
 
-## Deploy on Vercel
+## Important Notes
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+- The CodeLeap API requires a trailing slash (`/`) in routes to avoid CORS issues.
+- Data posted to the test API may be visible to other candidates.
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+## Target Company
+
+This repository exists specifically for the **CodeLeap** hiring process.
